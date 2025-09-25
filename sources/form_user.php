@@ -38,19 +38,49 @@ if (!empty($_POST['submit'])) {
                 <div class="alert alert-warning" role="alert">
                     User form
                 </div>
-                <form method="POST">
-                    <input type="hidden" name="id" value="<?php echo $_id ?>">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input class="form-control" name="name" placeholder="Name" value='<?php if (!empty($user[0]['name'])) echo $user[0]['name'] ?>'>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Password">
-                    </div>
+                <form method="POST" action="">
+    <input type="hidden" name="id" value="<?php echo htmlspecialchars($_id); ?>">
 
-                    <button type="submit" name="submit" value="submit" class="btn btn-primary">Submit</button>
-                </form>
+    <div class="form-group">
+        <label for="name">Name (username)</label>
+        <input type="text" class="form-control" name="name"
+               value="<?php echo !empty($user[0]['name']) ? htmlspecialchars($user[0]['name']) : ''; ?>">
+    </div>
+
+    <div class="form-group">
+        <label for="fullname">Full name</label>
+        <input type="text" class="form-control" name="fullname"
+               value="<?php echo !empty($user[0]['fullname']) ? htmlspecialchars($user[0]['fullname']) : ''; ?>">
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" name="email"
+               value="<?php echo !empty($user[0]['email']) ? htmlspecialchars($user[0]['email']) : ''; ?>">
+    </div>
+
+    <div class="form-group">
+        <label for="type">Type</label>
+        <select class="form-control" name="type">
+            <option value="user"  <?php echo (!empty($user[0]['type']) && $user[0]['type']=='user') ? 'selected' : ''; ?>>User</option>
+            <option value="admin" <?php echo (!empty($user[0]['type']) && $user[0]['type']=='admin') ? 'selected' : ''; ?>>Admin</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu mới nếu muốn đổi">
+    </div>
+
+    <div class="form-group">
+        <label for="version">Version</label>
+        <input type="number" class="form-control" name="version"
+               value="<?php echo isset($user[0]['version']) ? htmlspecialchars($user[0]['version']) : 1; ?>">
+    </div>
+
+    <button type="submit" name="submit" value="submit" class="btn btn-primary">Lưu</button>
+</form>
+
             <?php } else { ?>
                 <div class="alert alert-success" role="alert">
                     User not found!
